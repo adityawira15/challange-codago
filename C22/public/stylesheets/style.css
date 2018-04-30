@@ -1,0 +1,62 @@
+body {
+  font:"Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 20px
+}
+h2{
+  margin-left: 5px;
+}
+select{
+  background-color: white;
+}
+table{
+  font-size: 20px
+}
+
+.add-table{
+  width: 200px
+}
+.button{
+  background-color: #009efa;
+  color: white;
+  border-radius: 5px;
+  padding: 6px 20px;
+  margin-left: 13px
+}
+.b-delete{
+  background-color: #fa002a;
+  color: white;
+  border-radius: 5px;
+  padding: 6px 10px;
+}
+.b-edit{
+  background-color: #1d9101;
+  color: white;
+  border-radius: 5px;
+  padding: 6px 10px;
+}
+.checkbox-inline{
+  background-color: white;
+  margin: 8px 0px;
+  font-size: 22px
+}
+.date{
+  margin: 4px;
+  margin-left: 20px;
+  border-radius: 5px;
+  width: 30%;
+}
+.form-filter{
+  padding-top: 0px;
+  padding-left: 50px;
+}
+.input{
+  margin: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+.row{
+  margin-left:0px;
+}
+.td1{
+  margin: 5px
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 50%;
+        height: 400px;
+        background-color: grey;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h3>My Google Maps</h3>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            // $.ajax({
+            //     url: 'api/maps',
+            //     contentType: 'application/json',
+            //     success: function(response){
+
+            //     }
+            // })
+          var uluru = {lat: -6.113006, lng: 106.145893};
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: uluru
+          });
+          var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+          });
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7FaWHRzFPlOHRnySxI4PamCiGm6t-K2Y&callback=initMap">
+      </script>
+  </body>
+</html>

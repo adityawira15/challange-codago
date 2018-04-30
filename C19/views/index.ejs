@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <title>json bread</title>
+  </head>
+  <body>
+    <h1>BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    <h2>Filters</h2>
+    
+    <div class="row">
+      <div class="col-2">
+        <form action="/" method="GET">
+            <label class="checkbox-inline"><input type="checkbox" value="">ID </label><br>
+            <label class="checkbox-inline"><input type="checkbox" name="string" value="">String</label><br>
+            <label class="checkbox-inline"><input type="checkbox" value="">Integer</label><br>
+            <label class="checkbox-inline"><input type="checkbox" value="">Float</label><br>
+            <label class="checkbox-inline"><input type="checkbox" value="">Date</label><br>
+            <br><br><br>
+            <label class="checkbox-inline"><input type="checkbox" value="">Boolean</label><br>
+            <button type="submit" class="button">Search</button>
+          </form>
+      </div>
+        <div class="col-6">
+          <input type="text" class="input" placeholder="ID"><br>
+          <input type="text" class="input" placeholder="String" name="string"><br>
+          <input type="text" class="input" placeholder="Integer"><br>
+          <input type="text" class="input" placeholder="Float"><br>
+          <input type="date" class="date" placeholder="Start Date"><br>
+           <p class="date">
+            to
+           </p>
+          <input type="date" class="date" placeholder="End Date"><br>
+          <select required name="Boolean" id="boolean" class="input">
+            <option value="">Choose the boolean ...</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+      </div>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">String</th>
+              <th scope="col">Integer</th>
+              <th scope="col">Float</th>
+              <th scope="col">Date</th>
+              <th scope="col">Boolean</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%data.forEach(function(val){%>
+            <tr>
+              <th scope="row"><%=val.id%></th>
+              <td><%=val.string%></td>
+              <td><%=val.integer%></td>
+              <td><%=val.float%></td>
+              <td><%=val.date%></td>
+              <td><%=val.boolean%></td>
+              <td>
+                <a href="/edit/<%=val.id%>"><button type="submit" class="b-edit" name="edit">Edit</button></a> 
+                <a href="/delete/<%=val.id%>" onclick="return confirm('apakah anda yakin ?')"><button type="submit" class="b-delete" name="delete">Delete</button></a> 
+              </td>
+            </tr>
+            <%});%>
+          </tbody>
+        </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1<span class="sr-only">(current)</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="#">2 </span></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+          <a href="/add"><button type="submit" class="button">Add</button></a> 
+          
+
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

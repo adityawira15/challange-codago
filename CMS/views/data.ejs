@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Content Management System</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    <li class="active">
+                        <a href="/data">Data</a>
+                    </li>
+                    <li>
+                        <a href="/datadate">Data Date</a>
+                    </li>
+                    <li>
+                        <a href="/maps">Maps</a>
+                    </li>
+                </ul>
+                <a href="/logout"><button type="button" class="btn btn-primary navbar-right" style="margin-top: 8px">Log Out</button></a>
+            </div>
+        </div>
+    </nav>
+    <div class="body">
+        <button class="btn btn-primary" id="add-data">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+        </button>
+        <br>
+        <div class="add-data" id="form-add-data">
+            <form class="form-inline" id="form-save">
+                <div class="form-group">
+                    <label for="letter">Letter</label>
+                    <input type="text" name="letter" class="form-control" id="letter" placeholder="A">
+                </div>
+                <div class="form-group">
+                    <label for="frequency">Frequency</label>
+                    <input type="text" name="frequency" class="form-control" id="frequency" placeholder="0.0000">
+                </div>
+                <button class="btn btn-default">Save</button>
+            </form>
+        </div>
+        <div class="add-data" id="form-edit-data">
+            <form class="form-inline" id="form-update">
+                <input type="hidden" name="id" id="editid">
+                <div class="form-group">
+                    <label for="letter">Letter</label>
+                    <input type="text" name="letter" class="form-control" id="editletter" placeholder="A">
+                </div>
+                <div class="form-group">
+                    <label for="frequency">Frequency</label>
+                    <input type="text" name="frequency" class="form-control" id="editfrequency" placeholder="0.0000">
+                </div>
+                <button class="btn btn-default">Update</button>
+            </form>
+        </div>
+        <br>
+        <h4>Search</h4>
+        <hr>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="letter">Letter</label>
+                <input type="text" name="letter" class="form-control" id="letters" placeholder="A">
+            </div>
+            <div class="form-group">
+                <label for="frequency">Frequency</label>
+                <input type="text" name="frequency" class="form-control" id="frequencys" placeholder="0.0000">
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Letter</th>
+                    <th scope="col">Frequency</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function () {
+                getData();
+                $("#add-data").click(function () {
+                    $("#form-edit-data").hide();
+                    $("#form-add-data").toggle();
+                });
+
+                $('table').on('click', '.update-button', function () {
+                    var rowEl = $(this).closest('tr');
+                    var id = rowEl.find('.id').val();
+                    console.log(id)
+                    var letter = $('#editletter')
+                    var frequency = $('#editfrequency')
+                    var _id = $('#editid')
+                    $.ajax({
+                        url: `api/data/${id}`,
+                        contentType: 'application/json',
+                        success: (response) => {
+                            letter.val(response.letter)
+                            frequency.val(response.frequency)
+                            _id.val(response._id)
+                            $('#form-edit-data').show();
+                            $("#form-add-data").hide();
+                        }
+                    })
+                });
+
+                $('table').on('click', '.delete-button', function () {
+                    var rowEl = $(this).closest('tr');
+                    var id = rowEl.find('.id').val();
+                    $.confirm({
+                        title: 'Delete!',
+                        content: 'Are you sure to delete ?',
+                        buttons: {
+                            confirm:{
+                                text: 'Yes',
+                                btnClass: 'btn-blue',
+                                action: function () {
+                                    $.ajax({
+                                        url: `api/data/${id}`,
+                                        method: 'DELETE',
+                                        contentType: 'application/json',
+                                        success: function (response) {
+                                            getData();
+                                        }
+                                    })
+                                    $.alert('Deleted!');
+                                }
+                            }, 
+                            cancel: {
+                                text: 'No',
+                                action: function () {
+                                    $.alert('Canceled!');
+                                },
+                            }
+                        }
+                    });
+                })
+
+                // CREATE/POST
+                $('#form-save').on('submit', function (event) {
+                    event.preventDefault();
+
+                    var letter = $('#letter');
+                    var frequency = $('#frequency');
+
+                    $.ajax({
+                        url: '/api/data',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ letter: letter.val(), frequency: frequency.val() }),
+                        success: function (response) {
+                            console.log(response);
+                            letter.val('');
+                            frequency.val('');
+                            $("#form-add-data").hide();
+                            getData();
+                        }
+                    });
+                });
+
+                $('#form-update').on('submit', (event) => {
+                    event.preventDefault();
+
+                    var letter = $('#editletter');
+                    var frequency = $('#editfrequency');
+                    var id = $('#editid');
+
+                    $.ajax({
+                        url: `/api/data/${id.val()}`,
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ letter: letter.val(), frequency: frequency.val() }),
+                        success: (response) => {
+                            console.log(response)
+                            letter.val('');
+                            frequency.val('');
+                            id.val('');
+                            $('#form-edit-data').hide();
+                            getData();
+                        }
+                    })
+
+
+                })
+
+                // Search Letter
+                $('#letters').keyup(() => {
+                    let letter = $('#letters')
+                    let frequency = $('#frequencys')
+                    if (letter.val() != '' && letter.val() != null) {
+                        $.ajax({
+                            url: 'api/data/search',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ letter: letter.val(), frequency: frequency.val() }),
+                            success: (response) => {
+                                createTable(response)
+                            }
+                        })
+                    } else {
+                        getData();
+                    }
+                })
+
+                // Seacrh Frequency
+                $('#frequencys').keyup(() => {
+                    let letter = $('#letters')
+                    let frequency = $('#frequencys')
+                    console.log(frequency.val())
+                    if (frequency.val() != '' && frequency.val() != null) {
+                        $.ajax({
+                            url: 'api/data/search',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ letter: letter.val(), frequency: frequency.val() }),
+                            success: (response) => {
+                                createTable(response)
+                            }
+                        })
+                    } else {
+                        getData()
+                    }
+                })
+
+                // UPDATE/PUT
+                // $('.update-button').click(() => {
+                //     $(this).hide();
+                //     console.log('update')
+                //     // $('.form-update').show();
+                // })
+            });
+
+            function getData() {
+                $.ajax({
+                    url: 'api/data',
+                    contentType: 'application/json',
+                    success: (response) => {
+                        createTable(response)
+                    }
+                })
+            }
+
+
+            function createTable(response) {
+                var tbodyEl = $('tbody');
+
+                tbodyEl.html('');
+                let no = 0;
+
+                response.forEach(function (data) {
+                    no++;
+                    tbodyEl.append('\
+                        <tr>\
+                            <th scope="row">\
+                                <input type="hidden" value="'+ data._id + '" class="id">'
+                        + no +
+                        '</th>\
+                            <td>'
+                        + data.letter +
+                        '</td>\
+                            <td>'
+                        + data.frequency +
+                        '</td>\
+                            <td>\
+                                <button class="btn btn-success update-button">\
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Update\
+                                </button>\
+                                <button class="btn btn-danger delete-button">\
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete\
+                                </button>\
+                            </td>\
+                        </tr>\
+                                        ');
+                });
+            }
+        </script>
+    </div>
+</body>
+
+</html>

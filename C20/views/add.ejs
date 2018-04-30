@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+<body>
+    <h1>Add Data</h1>
+    <form action="/save" method="POST">
+        <table class="table">
+                <thead>
+                    <tr>
+                        <td>String</td>
+                        <td> </td>
+                        <td><input type="text" name="string" class="input"></td>
+                    </tr>
+                    <tr>
+                        <td>Integer</td>
+                        <td> </td>
+                        <td><input type="number" name="integer" class="input"></td>
+                    </tr>
+                    <tr>
+                        <td>Float</td>
+                        <td> </td>
+                        <td><input type="text" name="float" class="input"></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td> </td>
+                        <td><input type="date" name="date" class="input"></td>
+                    </tr>
+                    <tr>
+                        <td>Boolean</td>
+                        <td> </td>
+                        <td>
+                            <select name="boolean" class="input">
+                                <option value="9">Choose the boolean ...</option>
+                                <option value="1">True</option>
+                                <option value="0">False</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <button type="submit" class="button">Save</button>
+    </form>
+
+</body>
+</html>

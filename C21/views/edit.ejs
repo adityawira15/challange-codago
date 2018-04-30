@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../stylesheets/style.css">
+</head>
+<body>
+    <h1>Edit Data</h1>
+    <form action="/edit2/<%=data[0].id%>" method="POST">
+        <table class="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td> </td>
+                        <td><input type="text" name="id" class="input" value="<%=data[0].id%>" disabled></td>
+                    </tr>
+                    <tr>
+                        <td>String</td>
+                        <td> </td>
+                        <td><input type="text" name="string" class="input" value="<%=data[0].string%>"></td>
+                    </tr>
+                    <tr>
+                        <td>Integer</td>
+                        <td> </td>
+                        <td><input type="text" name="integer" class="input" value="<%=data[0].integer%>"></td>
+                    </tr>
+                    <tr>
+                        <td>Float</td>
+                        <td> </td>
+                        <td><input type="text" name="float" class="input" value="<%=data[0].float%>"></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td> </td>
+                        <td><input type="text" name="date" class="input" value="<%=data[0].date%>"></td>
+                    </tr>
+                    <tr>
+                        <td>Boolean</td>
+                        <td> </td>
+                        <td>
+                            <select name="boolean" class="input" >
+                                <%if(data[0].boolean == 1){%>
+                                    <option value="9">Choose the boolean ...</option>
+                                    <option value="1" selected>True</option>
+                                    <option value="0">False</option>
+                                <%}else if(data[0].boolean == 0){%>
+                                    <option value="9">Choose the boolean ...</option>
+                                    <option value="1">True</option>
+                                    <option value="0" selected>False</option>
+                                <%}else{%>
+                                    <option value="9" selected>Choose the boolean ...</option>
+                                    <option value="1">True</option>
+                                    <option value="0">False</option>
+                                <%}%>
+                                        
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <button type="submit" class="button">Save</button>
+    </form>
+
+</body>
+</html>
